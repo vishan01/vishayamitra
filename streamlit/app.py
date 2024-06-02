@@ -24,7 +24,7 @@ class StreamlitResponse(ResponseParser):
         st.write(result["value"])
         return
 
-st.title("Data Analysis with PandasAI")
+st.title("Vishayamitra Prototype")
 uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
 if uploaded_file is not None:

@@ -19,6 +19,6 @@ if uploaded_file is not None:
     if st.button("Submit"):
         if prompt:
             s = SmartDataframe(df, config={"response_parser": StreamlitResponse})
-            response = s.chat(prompt)
+            s.chat(prompt)
         else:
             st.warning("Please enter a question")

@@ -1,2 +1,3 @@
 pandasai
 streamlit
+yaml

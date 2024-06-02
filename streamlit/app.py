@@ -1,10 +1,24 @@
+
+import os
 import pandas as pd
-import pandas_profiling
+from pandasai import SmartDataframe
+from pandasai.responses.streamlit_response import StreamlitResponse
 import streamlit as st
 
-from streamlit_pandas_profiling import st_profile_report
 
-df = pd.read_csv("https://storage.googleapis.com/tf-datasets/titanic/train.csv")
-pr = df.profile_report()
+os.environ["PANDASAI_API_KEY"] = st.secrets['PANDASAI_API_KEY']
 
-st_profile_report(pr)
+st.title("Data Analysis with PandasAI")
+uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+    st.write(df.head())
+
+    prompt = st.text_area("Ask a question")
+    if st.button("Submit"):
+        if prompt:
+            s = SmartDataframe(df, config={"response_parser": StreamlitResponse})
+            response = s.chat(prompt)
+        else:
+            st.warning("Please enter a question")

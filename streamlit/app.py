@@ -14,11 +14,11 @@ uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.write(df.head())
+    s = SmartDataframe(df, config={"response_parser": StreamlitResponse})
 
     prompt = st.text_area("Ask a question")
     if st.button("Submit"):
         if prompt:
-            s = SmartDataframe(df, config={"response_parser": StreamlitResponse})
             s.chat(prompt)
         else:
             st.warning("Please enter a question")

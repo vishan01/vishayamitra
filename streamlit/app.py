@@ -1,12 +1,13 @@
 
 import os
 import pandas as pd
-from pandasai import SmartDataframe
+from pandasai import Agent
 from pandasai.responses.response_parser import ResponseParser
 import streamlit as st
 
 
 os.environ["PANDASAI_API_KEY"] = st.secrets['PANDASAI_API_KEY']
+
 
 class StreamlitResponse(ResponseParser):
     
@@ -26,17 +27,26 @@ class StreamlitResponse(ResponseParser):
         return
 
 st.title("Vishayamitra Prototype")
-uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+uploaded_file = st.file_uploader("Choose Your Data file", type=["csv","xlsx","json"])
 
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
+    df = pd.DataFrame()
+    if uploaded_file.name.split(".")[-1]=='json':
+        df = pd.read_json(uploaded_file)
+    elif uploaded_file.name.split(".")[-1]=='csv':
+        df = pd.read_csv(uploaded_file)
+    elif uploaded_file.name.split(".")[-1]=='xlsx':
+        df= pd.read_excel(uploaded_file)
+    
     st.write(df.head())
-    s = SmartDataframe(df, config={'response_parser':StreamlitResponse})
-
+    s = Agent(df, config={'response_parser':StreamlitResponse})
+   
     prompt = st.text_area("Ask a question")
     if st.button("Submit"):
         if prompt:
-            response=s.chat(prompt)
+            
+            with st.spinner(text="In progress..."):
+                response=s.chat(prompt)
             st.write(response)
             
         else:

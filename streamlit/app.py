@@ -4,9 +4,17 @@ import pandas as pd
 from pandasai import Agent
 from pandasai.responses.response_parser import ResponseParser
 import streamlit as st
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.agents.agent_types import AgentType
+from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
+
+
+
 
 
 os.environ["PANDASAI_API_KEY"] = st.secrets['PANDASAI_API_KEY']
+os.environ["GOOGLE_API_KEY"] = st.secrets['GOOGLE_API_KEY']
+llm = ChatGoogleGenerativeAI(model="gemini-pro")
 
 
 class StreamlitResponse(ResponseParser):
@@ -40,13 +48,24 @@ if uploaded_file is not None:
     
     st.write(df.head())
     s = Agent(df, config={'response_parser':StreamlitResponse})
-   
+    agent = create_pandas_dataframe_agent(
+    llm,
+    df,
+    verbose=True
+)
+
     prompt = st.text_area("Ask a question")
     if st.button("Submit"):
         if prompt:
             
             with st.spinner(text="In progress..."):
-                response=s.chat(prompt)
+                if "plot" in prompt:
+                    response=s.chat(prompt)
+                elif "data" in prompt:
+                    response=s.chat(prompt)
+                else:
+                    response=agent.invoke(prompt)
+                    response=response['output']
             st.write(response)
             
         else:

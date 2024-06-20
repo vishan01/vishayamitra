@@ -8,16 +8,17 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents.agent_types import AgentType
 from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
 
+
+os.environ["PANDASAI_API_KEY"] = st.secrets['PANDASAI_API_KEY']
+os.environ["GOOGLE_API_KEY"] = st.secrets['GOOGLE_API_KEY']
+llm = ChatGoogleGenerativeAI(model="gemini-pro")
+
 st.sidebar.page_link("app.py", label="Home", icon="🏠")
 st.sidebar.page_link("pages/home.py", label="ChatBI", icon="💬")
 st.sidebar.page_link("pages/pattern.py", label="Pattern Identifier", icon="📈")
 st.sidebar.page_link("pages/visualization.py", label="Data Visualizer", icon="✨")
 st.sidebar.page_link("pages/sqldata.py", label="Database Connector", icon="💽")
 
-
-os.environ["PANDASAI_API_KEY"] = st.secrets['PANDASAI_API_KEY']
-os.environ["GOOGLE_API_KEY"] = st.secrets['GOOGLE_API_KEY']
-llm = ChatGoogleGenerativeAI(model="gemini-pro")
 
 
 class StreamlitResponse(ResponseParser):
@@ -63,13 +64,14 @@ if uploaded_file is not None:
     prompt = st.text_area("Ask a question")
     if st.button("Submit"):
         if prompt:
-            result='ues'
+            
             with st.spinner(text="In progress..."):
                 if "plot" in prompt:
-                    result=s.chat(prompt)
+                    s.chat(prompt)
+                elif "data" in prompt:
+                    s.chat(prompt)
                 else:
-                    result=agent.invoke(prompt)
-                    result=result['output']  
-            st.write(result)
+                    agent.invoke(prompt)
+            
         else:
             st.warning("Please enter a question")

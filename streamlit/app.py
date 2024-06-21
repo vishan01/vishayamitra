@@ -67,6 +67,8 @@ if uploaded_file is not None:
             with st.spinner(text="In progress..."):
                 if "plot" in prompt:
                     result=s.chat(prompt)
+                elif "data" in prompt:
+                    result=s.chat(prompt)
                 else:
                     result=agent.invoke(prompt)
                     result=result['output']  

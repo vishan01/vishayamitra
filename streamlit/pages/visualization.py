@@ -3,6 +3,9 @@ import pygwalker as pyg
 import pandas as pd
 from pygwalker.api.streamlit import StreamlitRenderer, init_streamlit_comm
 
+st.set_page_config(layout="wide", page_title="Vishayamitra Data Visualizer",page_icon="📊")
+
+
 init_streamlit_comm()
 
 st.sidebar.page_link("app.py", label="Home", icon="🏠")
@@ -20,18 +23,17 @@ def get_pyg_renderer() -> "StreamlitRenderer":
  
 st.title(":orange[Vishayamitra] Data Visualizer")
 
-with st.container():
-    if "data" not in st.session_state:
-        uploaded_file = st.file_uploader("Choose Your Data file", type=["csv","xlsx","json"])
-        if uploaded_file is not None:
-            st.session_state['data'] = pd.DataFrame()
-            if uploaded_file.name.split(".")[-1]=='json':
-                st.session_state['data'] = pd.read_json(uploaded_file)
-            elif uploaded_file.name.split(".")[-1]=='csv':
-                st.session_state['data'] = pd.read_csv(uploaded_file)
-            elif uploaded_file.name.split(".")[-1]=='xlsx':
-                st.session_state['data']= pd.read_excel(uploaded_file)
-    
-    if "data" in st.session_state:
-        renderer = get_pyg_renderer()
-        renderer.explorer()
+if "data" not in st.session_state:
+    uploaded_file = st.file_uploader("Choose Your Data file", type=["csv","xlsx","json"])
+    if uploaded_file is not None:
+        st.session_state['data'] = pd.DataFrame()
+        if uploaded_file.name.split(".")[-1]=='json':
+            st.session_state['data'] = pd.read_json(uploaded_file)
+        elif uploaded_file.name.split(".")[-1]=='csv':
+            st.session_state['data'] = pd.read_csv(uploaded_file)
+        elif uploaded_file.name.split(".")[-1]=='xlsx':
+            st.session_state['data']= pd.read_excel(uploaded_file)
+
+if "data" in st.session_state:
+    renderer = get_pyg_renderer()
+    renderer.explorer()

@@ -16,24 +16,21 @@ st.sidebar.page_link("pages/sqldata.py", label="Database Connector", icon="💽"
 
 
 @st.cache_resource
-def get_pyg_renderer() -> "StreamlitRenderer":
-    df = st.session_state['data']
+def get_pyg_renderer(df) -> "StreamlitRenderer":
     # If you want to use feature of saving chart config, set `spec_io_mode="rw"`
     return StreamlitRenderer(df, spec="./gw_config.json", spec_io_mode="rw")
  
 st.title(":orange[Vishayamitra] Data Visualizer")
 
-if "data" not in st.session_state:
-    uploaded_file = st.file_uploader("Choose Your Data file", type=["csv","xlsx","json"])
-    if uploaded_file is not None:
-        st.session_state['data'] = pd.DataFrame()
-        if uploaded_file.name.split(".")[-1]=='json':
-            st.session_state['data'] = pd.read_json(uploaded_file)
-        elif uploaded_file.name.split(".")[-1]=='csv':
-            st.session_state['data'] = pd.read_csv(uploaded_file)
-        elif uploaded_file.name.split(".")[-1]=='xlsx':
-            st.session_state['data']= pd.read_excel(uploaded_file)
+uploaded_file = st.file_uploader("Choose Your Data file", type=["csv","xlsx","json"])
+if uploaded_file is not None:
+    df = pd.DataFrame()
+    if uploaded_file.name.split(".")[-1]=='json':
+        df = pd.read_json(uploaded_file)
+    elif uploaded_file.name.split(".")[-1]=='csv':
+        df = pd.read_csv(uploaded_file)
+    elif uploaded_file.name.split(".")[-1]=='xlsx':
+        df= pd.read_excel(uploaded_file)
 
-if "data" in st.session_state:
-    renderer = get_pyg_renderer()
+    renderer = get_pyg_renderer(df)
     renderer.explorer()

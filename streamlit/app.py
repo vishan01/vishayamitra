@@ -63,15 +63,9 @@ if uploaded_file is not None:
     prompt = st.text_area("Ask a question")
     if st.button("Submit"):
         if prompt:
-            result='ues'
+            result=""
             with st.spinner(text="In progress..."):
-                if "plot" in prompt:
-                    result=s.chat(prompt)
-                elif "data" in prompt:
-                    result=s.chat(prompt)
-                else:
-                    result=agent.invoke(prompt)
-                    result=result['output']  
+                result=s.chat(prompt)
             st.write(result)
         else:
             st.warning("Please enter a question")

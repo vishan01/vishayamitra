@@ -15,6 +15,8 @@ st.sidebar.page_link("pages/visualization.py", label="Data Visualizer", icon="âœ
 st.sidebar.page_link("pages/sqldata.py", label="Database Connector", icon="ðŸ’½")
 
 
+
+
 os.environ["PANDASAI_API_KEY"] = st.secrets['PANDASAI_API_KEY']
 os.environ["GOOGLE_API_KEY"] = st.secrets['GOOGLE_API_KEY']
 llm = ChatGoogleGenerativeAI(model="gemini-pro")
@@ -37,26 +39,26 @@ class StreamlitResponse(ResponseParser):
         st.write(result['value'])
         return
 
-st.title("Vishayamitra ")
+st.title(":orange[VISHAYAMITRA]")
 uploaded_file = st.file_uploader("Choose Your Data file", type=["csv","xlsx","json"])
 
 
 
 
 if uploaded_file is not None:
-    df = pd.DataFrame()
+    st.session_state['data'] = pd.DataFrame()
     if uploaded_file.name.split(".")[-1]=='json':
-        df = pd.read_json(uploaded_file)
+        st.session_state['data'] = pd.read_json(uploaded_file)
     elif uploaded_file.name.split(".")[-1]=='csv':
-        df = pd.read_csv(uploaded_file)
+        st.session_state['data'] = pd.read_csv(uploaded_file)
     elif uploaded_file.name.split(".")[-1]=='xlsx':
-        df= pd.read_excel(uploaded_file)
+        st.session_state['data']= pd.read_excel(uploaded_file)
     
-    st.write(df.head())
-    s = Agent(df, config={'response_parser':StreamlitResponse})
+    st.write(st.session_state['data'].head())
+    s = Agent(st.session_state['data'], config={'response_parser':StreamlitResponse})
     agent = create_pandas_dataframe_agent(
     llm,
-    df,
+    st.session_state['data'],
     verbose=True
 )
 

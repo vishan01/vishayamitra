@@ -258,7 +258,10 @@ if uploaded_file!=None:
                 try:
                     st.write("Model:", model_type)
                     y_pred = model.predict(x_train)
-                    st.write("Predicted y value:", y_pred)
+                    data["result"]=y_pred
+                    x.append("result")
+                    st.write("Predicted value")
+                    st.dataframe(data[x])
                 except:
                     st.write("Please select different model or enter different x value.")
         
@@ -277,7 +280,10 @@ if uploaded_file!=None:
                 try:
                     st.write("Model:", model_type)
                     y_pred = model.predict(x_train)
-                    st.write("Predicted y value:", y_pred)
+                    data["result"]=y_pred
+                    x.append("result")
+                    st.write("Predicted value")
+                    st.dataframe(data[x])
                 except:
                     st.write("Please select different model or enter different x value.")
         
@@ -292,7 +298,10 @@ if uploaded_file!=None:
                 try:
                     st.write("Model:", model_type)
                     y_pred = model.predict(x_train)
-                    st.write("Predicted y value:", y_pred)
+                    data["result"]=y_pred
+                    x.append("result")
+                    st.write("Predicted value")
+                    st.dataframe(data[x])
                 except:
                     st.write("Please select different model or enter different x value.")
     except:

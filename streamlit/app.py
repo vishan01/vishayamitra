@@ -7,8 +7,8 @@ import streamlit as st
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents.agent_types import AgentType
 from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
-from ydata_profiling import ProfileReport
-from streamlit_pandas_profiling import st_profile_report
+import sweetviz as sv
+import streamlit.components.v1 as components
 
 st.sidebar.page_link("app.py", label="Home", icon="🏠")
 st.sidebar.page_link("pages/home.py", label="ChatBI", icon="💬")
@@ -18,12 +18,10 @@ st.sidebar.page_link("pages/sqldata.py", label="Database Connector", icon="💽"
 
 
 def stProfile():    
-    dataset = st.session_state.data
-    if len(dataset) > 0:
-        profile_report = ProfileReport(dataset)
-        export = profile_report.to_html()
-        st.download_button(label="Download Full Report", data=export, file_name='report.html')
-        st_profile_report(profile_report)
+    my_report = sv.analyze(st.session_state['data'])
+    my_report.show_html(filepath='./frontend/public/EDA.html', open_browser=False, layout='vertical', scale=1.0)
+    components.iframe(src='http://localhost:3001/EDA.html', width=1100, height=1200, scrolling=True)
+
 
 
 

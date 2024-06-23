@@ -5,7 +5,7 @@ langchain
 langchain_google_genai
 ydata-profiling==4.8.3
 streamlit-pandas-profiling==0.1.3
-visions==0.7.1
+visions==0.7.5
 pandas-profiling==3.0.0
 langchain_experimental
 scikit-learn

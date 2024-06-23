@@ -7,12 +7,23 @@ import streamlit as st
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents.agent_types import AgentType
 from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
+from ydata_profiling import ProfileReport
+from streamlit_pandas_profiling import st_profile_report
 
 st.sidebar.page_link("app.py", label="Home", icon="🏠")
 st.sidebar.page_link("pages/home.py", label="ChatBI", icon="💬")
 st.sidebar.page_link("pages/pattern.py", label="Pattern Identifier", icon="📈")
 st.sidebar.page_link("pages/visualization.py", label="Data Visualizer", icon="✨")
 st.sidebar.page_link("pages/sqldata.py", label="Database Connector", icon="💽")
+
+
+def stProfile():    
+    dataset = st.session_state.data
+    if len(dataset) > 0:
+        profile_report = ProfileReport(dataset)
+        export = profile_report.to_html()
+        st.download_button(label="Download Full Report", data=export, file_name='report.html')
+        st_profile_report(profile_report)
 
 
 
@@ -61,7 +72,8 @@ if uploaded_file is not None:
     st.session_state['data'],
     verbose=True
 )
-
+    with st.expander("Data Profile Report"):
+        stProfile()
     prompt = st.text_area("Ask a question")
     if st.button("Submit"):
         if prompt:

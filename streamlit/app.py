@@ -19,8 +19,8 @@ st.sidebar.page_link("pages/sqldata.py", label="Database Connector", icon="💽"
 
 def stProfile():    
     my_report = sv.analyze(st.session_state['data'])
-    my_report.show_html(filepath='./frontend/public/EDA.html', open_browser=False, layout='vertical', scale=1.0)
-    components.iframe(src='http://localhost:3001/EDA.html', width=1100, height=1200, scrolling=True)
+    my_report.show_html(filepath='./EDA.html', open_browser=False, layout='vertical', scale=1.0)
+    components.iframe(src='./EDA.html', width=1100, height=1200, scrolling=True)
 
 
 

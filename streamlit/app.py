@@ -18,9 +18,18 @@ st.sidebar.page_link("pages/sqldata.py", label="Database Connector", icon="💽"
 
 
 def stProfile():    
-    my_report = sv.analyze(st.session_state['data'])
-    my_report.show_html(filepath='./EDA.html', open_browser=False, layout='vertical', scale=1.0)
-    components.iframe(src='./EDA.html', width=1100, height=1200, scrolling=True)
+    analysis = sv.analyze(st.session_state['data'])
+    html_file = "output.html"
+    # analysis.show_html(html_file)
+    # Get the current directory
+    current_dir = os.getcwd()
+    # Create the full path to the HTML file
+    full_path = os.path.join(current_dir, html_file)
+    # Render the output on a web page.
+    analysis.show_html(filepath=full_path, open_browser=False, layout='vertical', scale=1.0)
+    HtmlFile = open("output.html", 'r', encoding='utf-8')
+    source_code = HtmlFile.read() 
+    components.html(source_code, height=1200, width=1750, scrolling=True)
 
 
 

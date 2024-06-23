@@ -164,7 +164,7 @@ class TimeSeries:
 
 
 
-st.title(":Orange[Vishayamitra] Pattern Identifier")
+st.title(":orange[Vishayamitra] Pattern Identifier")
 # Example usage
 uploaded_file = st.file_uploader("Choose a file", type=["csv"])
 if uploaded_file!=None:

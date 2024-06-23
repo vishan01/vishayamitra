@@ -39,7 +39,7 @@ class StreamlitResponse(ResponseParser):
         st.write(result['value'])
         return
 
-st.title("Vishayamitra ")
+st.title(":orange[Vishayamitra] ChatBI")
 uploaded_file = st.file_uploader("Choose Your Data file", type=["csv","xlsx","json"])
 
 

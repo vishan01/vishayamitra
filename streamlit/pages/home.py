@@ -8,6 +8,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents.agent_types import AgentType
 from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
 
+st.set_page_config(layout="wide", page_title="VISHAYAMITRA", page_icon="🧠")
 
 os.environ["PANDASAI_API_KEY"] = st.secrets['PANDASAI_API_KEY']
 os.environ["GOOGLE_API_KEY"] = st.secrets['GOOGLE_API_KEY']

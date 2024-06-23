@@ -8,6 +8,7 @@ st.sidebar.page_link("pages/pattern.py", label="Pattern Identifier", icon="📈"
 st.sidebar.page_link("pages/visualization.py", label="Data Visualizer", icon="✨")
 st.sidebar.page_link("pages/sqldata.py", label="Database Connector", icon="💽")
 
+st.set_page_config(layout="wide", page_title="VISHAYAMITRA", page_icon="🧠")
 
 
 with st.container():

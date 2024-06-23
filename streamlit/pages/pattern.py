@@ -10,6 +10,7 @@ from sklearn.ensemble import AdaBoostRegressor
 from sklearn.neural_network import MLPRegressor
 from sklearn.gaussian_process import GaussianProcessRegressor
 
+st.set_page_config(layout="wide", page_title="VISHAYAMITRA", page_icon="🧠")
 
 st.sidebar.page_link("app.py", label="Home", icon="🏠")
 st.sidebar.page_link("pages/home.py", label="ChatBI", icon="💬")

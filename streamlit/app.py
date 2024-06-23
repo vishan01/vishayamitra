@@ -10,6 +10,7 @@ from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe
 import sweetviz as sv
 import streamlit.components.v1 as components
 
+st.set_page_config(layout="wide", page_title="VISHAYAMITRA", page_icon="🧠")
 st.sidebar.page_link("app.py", label="Home", icon="🏠")
 st.sidebar.page_link("pages/home.py", label="ChatBI", icon="💬")
 st.sidebar.page_link("pages/pattern.py", label="Pattern Identifier", icon="📈")

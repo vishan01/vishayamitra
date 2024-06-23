@@ -171,127 +171,129 @@ if uploaded_file!=None:
     data=pd.read_csv(uploaded_file)
     st.write(data.head())
     task_type = st.selectbox("Select Task Type", index=None, options=["Regression", "Classification", "Anomaly Detection", "Clustering", "Time Series"])
-    
-    if task_type == "Regression":
-        x = st.selectbox("Select x value", data.columns)
-        y = st.selectbox("Select y value", data.columns)
-        x_train = data[x].values.reshape(-1, 1)
-        y_train = data[y].values
-        model_type = st.selectbox("Select Model", index=None, options=["Linear Regression", "Decision Tree", "Random Forest", "Support Vector Regression", "K Neighbors", "AdaBoost", "Neural Network", "Gaussian Process"])
-        if model_type == "Linear Regression":
-            model = Regression().train_linear_regression(x_train, y_train)
-        elif model_type == "Decision Tree":
-            model = Regression().train_decision_tree(x_train, y_train)
-        elif model_type == "Random Forest":
-            model = Regression().train_random_forest(x_train, y_train)
-        elif model_type == "Support Vector Regression":
-            model = Regression().train_support_vector_regression(x_train, y_train)
-        elif model_type == "K Neighbors":
-            model = Regression().train_k_neighbors(x_train, y_train)
-        elif model_type == "AdaBoost":
-            model = Regression().train_adaboost(x_train, y_train)
-        elif model_type == "Neural Network":
-            model = Regression().train_neural_network(x_train, y_train)
-        elif model_type == "Gaussian Process":
-            model = Regression().train_gaussian_process(x_train, y_train)
-        
-        x_input = st.text_input("Enter x value")
+    try:
+        if task_type == "Regression":
+            x = st.selectbox("Select x value", data.columns)
+            y = st.selectbox("Select y value", data.columns)
+            x_train = data[x].values.reshape(-1, 1)
+            y_train = data[y].values
+            model_type = st.selectbox("Select Model", index=None, options=["Linear Regression", "Decision Tree", "Random Forest", "Support Vector Regression", "K Neighbors", "AdaBoost", "Neural Network", "Gaussian Process"])
+            if model_type == "Linear Regression":
+                model = Regression().train_linear_regression(x_train, y_train)
+            elif model_type == "Decision Tree":
+                model = Regression().train_decision_tree(x_train, y_train)
+            elif model_type == "Random Forest":
+                model = Regression().train_random_forest(x_train, y_train)
+            elif model_type == "Support Vector Regression":
+                model = Regression().train_support_vector_regression(x_train, y_train)
+            elif model_type == "K Neighbors":
+                model = Regression().train_k_neighbors(x_train, y_train)
+            elif model_type == "AdaBoost":
+                model = Regression().train_adaboost(x_train, y_train)
+            elif model_type == "Neural Network":
+                model = Regression().train_neural_network(x_train, y_train)
+            elif model_type == "Gaussian Process":
+                model = Regression().train_gaussian_process(x_train, y_train)
+            
+            x_input = st.text_input("Enter x value")
 
-        if st.button("Predict"):
-            try:
-                st.write("Model:", model_type)
-                st.write("accuracy Score:", model.score(x_train, y_train))
-                x_input = np.array(x_input).reshape(1, -1)
-                y_pred = model.predict(x_input)
-                st.write("Predicted y value:", y_pred)
-            except:
-                st.write("Please select different model or enter different x value.")
-    
-    elif task_type == "Classification":
-        x = st.selectbox("Select x value", data.columns)
-        y = st.selectbox("Select y value", data.columns)
-        x_train = data[x].values.reshape(-1, 1)
-        y_train = data[y].values
+            if st.button("Predict"):
+                try:
+                    st.write("Model:", model_type)
+                    st.write("accuracy Score:", model.score(x_train, y_train))
+                    x_input = np.array(x_input).reshape(1, -1)
+                    y_pred = model.predict(x_input)
+                    st.write("Predicted y value:", y_pred)
+                except:
+                    st.write("Please select different model or enter different x value.")
+        
+        elif task_type == "Classification":
+            x = st.selectbox("Select x value", data.columns)
+            y = st.selectbox("Select y value", data.columns)
+            x_train = data[x].values.reshape(-1, 1)
+            y_train = data[y].values
 
-        model_type = st.selectbox("Select Model", index=None, options=["Logistic Regression", "Decision Tree", "Random Forest", "Support Vector Machine", "K Neighbors", "AdaBoost", "Neural Network", "Gaussian Process"])
-        if model_type == "Logistic Regression":
-            model = Classification().train_logistic_regression(x_train, y_train)
-        elif model_type == "Decision Tree":
-            model = Classification().train_decision_tree(x_train, y_train)
-        elif model_type == "Random Forest":
-            model = Classification().train_random_forest(x_train, y_train)
-        elif model_type == "Support Vector Machine":
-            model = Classification().train_support_vector_machine(x_train, y_train)
-        elif model_type == "K Neighbors":
-            model = Classification().train_k_neighbors(x_train, y_train)
-        elif model_type == "AdaBoost":
-            model = Classification().train_adaboost(x_train, y_train)
-        elif model_type == "Neural Network":
-            model = Classification().train_neural_network(x_train, y_train)
-        elif model_type == "Gaussian Process":
-            model = Classification().train_gaussian_process(x_train, y_train)
-        
-        x_input = st.text_input("Enter x value")
+            model_type = st.selectbox("Select Model", index=None, options=["Logistic Regression", "Decision Tree", "Random Forest", "Support Vector Machine", "K Neighbors", "AdaBoost", "Neural Network", "Gaussian Process"])
+            if model_type == "Logistic Regression":
+                model = Classification().train_logistic_regression(x_train, y_train)
+            elif model_type == "Decision Tree":
+                model = Classification().train_decision_tree(x_train, y_train)
+            elif model_type == "Random Forest":
+                model = Classification().train_random_forest(x_train, y_train)
+            elif model_type == "Support Vector Machine":
+                model = Classification().train_support_vector_machine(x_train, y_train)
+            elif model_type == "K Neighbors":
+                model = Classification().train_k_neighbors(x_train, y_train)
+            elif model_type == "AdaBoost":
+                model = Classification().train_adaboost(x_train, y_train)
+            elif model_type == "Neural Network":
+                model = Classification().train_neural_network(x_train, y_train)
+            elif model_type == "Gaussian Process":
+                model = Classification().train_gaussian_process(x_train, y_train)
+            
+            x_input = st.text_input("Enter x value")
 
-        if st.button("Predict"):
-            try:
-                st.write("Model:", model_type)
-                st.write("accuracy Score:", model.score(x_train, y_train))
-                x_input = np.array(x_input).reshape(1, -1)
-                y_pred = model.predict(x_input)
-                st.write("Predicted y value:", y_pred)
-            except:
-                st.write("Please select different model or enter different x value.")
-    
-    elif task_type == "Anomaly Detection":
-        x = st.selectbox("Select x value", data.columns)
-        x_train = data[x].values.reshape(-1, 1)
-        model_type = st.selectbox("Select Model", index=None, options=["Isolation Forest", "Local Outlier Factor", "One Class SVM"])
-        if model_type == "Isolation Forest":
-            model = AnomalyDetection().train_isolation_forest(x_train)
-        elif model_type == "Local Outlier Factor":
-            model = AnomalyDetection().train_local_outlier_factor(x_train)
-        elif model_type == "One Class SVM":
-            model = AnomalyDetection().train_one_class_svm(x_train)
+            if st.button("Predict"):
+                try:
+                    st.write("Model:", model_type)
+                    st.write("accuracy Score:", model.score(x_train, y_train))
+                    x_input = np.array(x_input).reshape(1, -1)
+                    y_pred = model.predict(x_input)
+                    st.write("Predicted y value:", y_pred)
+                except:
+                    st.write("Please select different model or enter different x value.")
         
-        if st.button("Predict"):
-            try:
-                st.write("Model:", model_type)
-                y_pred = model.predict(x_train)
-                st.write("Predicted y value:", y_pred)
-            except:
-                st.write("Please select different model or enter different x value.")
-    
-    elif task_type == "Clustering":
-        x = st.selectbox("Select x value", data.columns)
-        x_train = data[x].values.reshape(-1, 1)
-        model_type = st.selectbox("Select Model", index=None, options=["K Means", "Agglomerative", "DBSCAN"])
-        if model_type == "K Means":
-            model = Clustering().train_k_means(x_train)
-        elif model_type == "Agglomerative":
-            model = Clustering().train_agglomerative(x_train)
-        elif model_type == "DBSCAN":
-            model = Clustering().train_dbscan(x_train)
+        elif task_type == "Anomaly Detection":
+            x = st.selectbox("Select x value", data.columns)
+            x_train = data[x].values.reshape(-1, 1)
+            model_type = st.selectbox("Select Model", index=None, options=["Isolation Forest", "Local Outlier Factor", "One Class SVM"])
+            if model_type == "Isolation Forest":
+                model = AnomalyDetection().train_isolation_forest(x_train)
+            elif model_type == "Local Outlier Factor":
+                model = AnomalyDetection().train_local_outlier_factor(x_train)
+            elif model_type == "One Class SVM":
+                model = AnomalyDetection().train_one_class_svm(x_train)
+            
+            if st.button("Predict"):
+                try:
+                    st.write("Model:", model_type)
+                    y_pred = model.predict(x_train)
+                    st.write("Predicted y value:", y_pred)
+                except:
+                    st.write("Please select different model or enter different x value.")
         
-        if st.button("Predict"):
-            try:
-                st.write("Model:", model_type)
-                y_pred = model.predict(x_train)
-                st.write("Predicted y value:", y_pred)
-            except:
-                st.write("Please select different model or enter different x value.")
-    
-    elif task_type == "Time Series":
-        x = st.selectbox("Select x value", data.columns)
-        x_train = data[x].values
-        model_type = st.selectbox("Select Model", index=None, options=["ARIMA"])
-        if model_type == "ARIMA":
-            model = TimeSeries().train_arima(x_train)
+        elif task_type == "Clustering":
+            x = st.selectbox("Select x value", data.columns)
+            x_train = data[x].values.reshape(-1, 1)
+            model_type = st.selectbox("Select Model", index=None, options=["K Means", "Agglomerative", "DBSCAN"])
+            if model_type == "K Means":
+                model = Clustering().train_k_means(x_train)
+            elif model_type == "Agglomerative":
+                model = Clustering().train_agglomerative(x_train)
+            elif model_type == "DBSCAN":
+                model = Clustering().train_dbscan(x_train)
+            
+            if st.button("Predict"):
+                try:
+                    st.write("Model:", model_type)
+                    y_pred = model.predict(x_train)
+                    st.write("Predicted y value:", y_pred)
+                except:
+                    st.write("Please select different model or enter different x value.")
         
-        if st.button("Predict"):
-            try:
-                st.write("Model:", model_type)
-                y_pred = model.predict(x_train)
-                st.write("Predicted y value:", y_pred)
-            except:
-                st.write("Please select different model or enter different x value.")
+        elif task_type == "Time Series":
+            x = st.selectbox("Select x value", data.columns)
+            x_train = data[x].values
+            model_type = st.selectbox("Select Model", index=None, options=["ARIMA"])
+            if model_type == "ARIMA":
+                model = TimeSeries().train_arima(x_train)
+            
+            if st.button("Predict"):
+                try:
+                    st.write("Model:", model_type)
+                    y_pred = model.predict(x_train)
+                    st.write("Predicted y value:", y_pred)
+                except:
+                    st.write("Please select different model or enter different x value.")
+    except:
+        st.write("Please select different task type or model or preprocess the data before training the model.")

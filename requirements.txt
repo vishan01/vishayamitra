@@ -1,4 +1,3 @@
-pip==24.1
 pandas
 pandasai
 streamlit
@@ -10,3 +9,4 @@ visions==0.7.5
 langchain_experimental
 scikit-learn
 pygwalker
+phik>=0.11.1

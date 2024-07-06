@@ -80,8 +80,12 @@ if uploaded_file is not None:
     st.session_state['data'],
     verbose=True
 )
+    
     with st.expander("Data Profile Report"):
-        stProfile()
+        try:
+            stProfile()
+        except Exception as e:
+            st.write("Sorry Cannot process the data")
     prompt = st.text_area("Ask a question")
     if st.button("Submit"):
         if prompt:

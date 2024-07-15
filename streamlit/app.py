@@ -20,8 +20,8 @@ st.sidebar.page_link("pages/data_editor.py", label="Database Editor", icon="‚úèÔ
 
 
 
-os.environ["PANDASAI_API_KEY"] = '$2a$10$VLJ1V8h1/dpNSubbQ6B87e7ZAH.QSQvOh1Ur34/N2LdvpzPr1zQWC'
-os.environ["GOOGLE_API_KEY"] = "AIzaSyCZ7YpN_LGG4V73cvYUMFcaZ6fAr_ELGng"
+os.environ["PANDASAI_API_KEY"] = st.secrets['PANDASAI_API_KEY']
+os.environ["GOOGLE_API_KEY"] = st.secrets['GOOGLE_API_KEY']
 llm = ChatGoogleGenerativeAI(model="gemini-pro")
 
 
@@ -60,7 +60,6 @@ if uploaded_file is not None:
     st.write(st.session_state['data'].head())
     s = Agent(st.session_state['data'], config={'response_parser':StreamlitResponse})
     agent = create_pandas_dataframe_agent(
-    llm,
     st.session_state['data'],
     verbose=True
 )

@@ -62,7 +62,6 @@ if uploaded_file is not None:
     with st.expander("Data Profile Report"):
         st.write("Sorry Cannot process the data")
 
-    st.write(df.head())
     s = Agent(df, config={'response_parser':StreamlitResponse})
     agent = create_pandas_dataframe_agent(
     llm,
@@ -78,9 +77,9 @@ if uploaded_file is not None:
                 if "plot" in prompt:
                     s.chat(prompt)
                 elif "data" in prompt:
-                    s.chat(prompt)
+                    ans=s.chat(prompt)
                 else:
-                    agent.invoke(prompt)
-            
+                    ans=agent.invoke(prompt)
+            st.write(ans)
         else:
             st.warning("Please enter a question")

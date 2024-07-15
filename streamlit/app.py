@@ -16,6 +16,7 @@ st.sidebar.page_link("pages/home.py", label="ChatBI", icon="💬")
 st.sidebar.page_link("pages/pattern.py", label="Pattern Identifier", icon="📈")
 st.sidebar.page_link("pages/visualization.py", label="Data Visualizer", icon="✨")
 st.sidebar.page_link("pages/sqldata.py", label="Database Connector", icon="💽")
+st.sidebar.page_link("pages/data_editor.py", label="Database Editor", icon="✏️")
 
 
 def stProfile():    
@@ -36,8 +37,8 @@ def stProfile():
 
 
 
-os.environ["PANDASAI_API_KEY"] = st.secrets['PANDASAI_API_KEY']
-os.environ["GOOGLE_API_KEY"] = st.secrets['GOOGLE_API_KEY']
+os.environ["PANDASAI_API_KEY"] = '$2a$10$VLJ1V8h1/dpNSubbQ6B87e7ZAH.QSQvOh1Ur34/N2LdvpzPr1zQWC'
+os.environ["GOOGLE_API_KEY"] = "AIzaSyCZ7YpN_LGG4V73cvYUMFcaZ6fAr_ELGng"
 llm = ChatGoogleGenerativeAI(model="gemini-pro")
 
 

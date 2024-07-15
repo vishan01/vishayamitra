@@ -79,7 +79,7 @@ if uploaded_file is not None:
                 elif "data" in prompt:
                     ans=s.chat(prompt)
                 else:
-                    ans=agent.invoke(prompt)
+                    ans=agent.invoke(prompt)['output']
             st.write(ans)
         else:
             st.warning("Please enter a question")

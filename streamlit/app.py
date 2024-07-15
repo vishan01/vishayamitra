@@ -58,20 +58,29 @@ if uploaded_file is not None:
         st.session_state['data']= pd.read_excel(uploaded_file)
     
     st.write(st.session_state['data'].head())
-    s = Agent(st.session_state['data'], config={'response_parser':StreamlitResponse})
-    agent = create_pandas_dataframe_agent(
-    st.session_state['data'],
-    verbose=True
-)
-    
+    df=st.session_state['data']
     with st.expander("Data Profile Report"):
         st.write("Sorry Cannot process the data")
+
+    st.write(df.head())
+    s = Agent(df, config={'response_parser':StreamlitResponse})
+    agent = create_pandas_dataframe_agent(
+    llm,
+    df,
+    verbose=True
+)
+
     prompt = st.text_area("Ask a question")
     if st.button("Submit"):
         if prompt:
-            result=""
+            
             with st.spinner(text="In progress..."):
-                result=s.chat(prompt)
-            st.write(result)
+                if "plot" in prompt:
+                    s.chat(prompt)
+                elif "data" in prompt:
+                    s.chat(prompt)
+                else:
+                    agent.invoke(prompt)
+            
         else:
             st.warning("Please enter a question")

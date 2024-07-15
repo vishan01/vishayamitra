@@ -20,18 +20,7 @@ st.sidebar.page_link("pages/data_editor.py", label="Database Editor", icon="‚úèÔ
 
 
 def stProfile():    
-    analysis = sv.analyze(st.session_state['data'])
-    html_file = "output.html"
-    # analysis.show_html(html_file)
-    # Get the current directory
-    current_dir = os.getcwd()
-    # Create the full path to the HTML file
-    full_path = os.path.join(current_dir, html_file)
-    # Render the output on a web page.
-    analysis.show_html(filepath=full_path, open_browser=False, layout='vertical', scale=1.0)
-    HtmlFile = open("output.html", 'r', encoding='utf-8')
-    source_code = HtmlFile.read() 
-    components.html(source_code, height=900, scrolling=True)
+    pass
 
 
 

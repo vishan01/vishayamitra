@@ -15,7 +15,7 @@ Vishayamitra is a Streamlit application that provides various data analysis and 
 1.  Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/vishayamitra.git
+    git clone https://github.com/vishan01/vishayamitra.git
     cd vishayamitra
     ```
 2.  Install dependencies:
